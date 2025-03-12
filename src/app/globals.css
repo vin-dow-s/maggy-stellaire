@@ -1,26 +1,109 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --background: #ffffff;
+    --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+    --font-main: var(--font-quicksand);
+    --color-primary: #7d3ba9;
+    --color-primary-darker: #1b083e;
+    --color-secondary: #c0c0c0;
+    --color-energetique: rgba(1, 215, 88, 0.2);
+    --color-energetique-hover: rgba(1, 215, 88, 0.35);
+    --color-button-energetique: rgba(1, 215, 88, 0.2);
+    --color-hypnose: rgba(1, 32, 149, 0.3);
+    --color-hypnose-hover: rgba(1, 32, 149, 0.9);
+    --color-button-hypnose: rgba(1, 32, 149, 0.6);
+    --color-voyance: rgba(125, 59, 169, 0.2);
+    --color-voyance-hover: rgba(125, 59, 169, 0.6);
+    --color-button-voyance: rgba(125, 59, 169, 0.4);
+    --color-switch-on: rgba(192, 192, 192, 0.3);
+    --color-switch-off: rgba(192, 192, 192, 0.1);
+    --navbar-height: 96px; /* 80px (h-20) */
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    :root {
+        --background: #100329;
+        --foreground: #ededed;
+    }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-main);
+}
+
+/* Apply scroll margin to section headings with IDs (for anchor links) */
+section[id] {
+    scroll-margin-top: var(--navbar-height);
+}
+
+h2[id],
+h3[id],
+h4[id] {
+    scroll-margin-top: calc(var(--navbar-height) + 1rem);
+}
+
+.hero {
+    position: relative;
+    z-index: 1;
+    margin-top: 0;
+    padding-top: 0;
+
+    font-family: var(--font-heading);
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("/assets/univers.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(12, 1, 30, 0.85);
+    background-blend-mode: overlay;
+    z-index: -1;
+}
+
+@supports (background-image: url("data:image/webp;base64,UklGRg==")) {
+    .hero::before {
+        background-image: url("/assets/univers.png");
+    }
+}
+
+.gradient-primary {
+    background: linear-gradient(
+        to top,
+        var(--color-primary-darker),
+        var(--color-primary)
+    );
+    position: relative;
+    z-index: 1;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--color-primary);
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.15s ease-in-out;
+        border-radius: inherit;
+    }
+
+    &:hover::before {
+        opacity: 1;
+    }
 }
