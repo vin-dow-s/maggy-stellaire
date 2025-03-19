@@ -1,5 +1,6 @@
 "use client"
 
+import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { useState } from "react"
 
@@ -15,58 +16,55 @@ const Navigation = () => {
     }
 
     return (
-        <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm h-24 ">
-            <div className="flex justify-between items-center p-4 bg-(--color-primary-darker) w-[60%]   mx-auto my-4 rounded-2xl px-8">
+        <nav
+            className={`fixed top-0 left-0 right-0 z-50 h-24 transition-all duration-300 py-4 `}
+        >
+            <div className="flex justify-between items-center w-[90%] lg:w-[70%] shadow-2xl max-w-6xl mx-auto rounded-2xl px-6 py-3 bg-(--color-primary-darker)">
                 <Link
                     href="/"
-                    className=" text-white font-light "
+                    className="text-[var(--navbar-text)] font-light transition-all duration-300"
                     onClick={closeMenu}
                 >
                     <div className="flex items-center gap-2 sm:gap-4">
                         <div className="flex flex-col">
-                            <h2 className="text-xl sm:text-2xl">
+                            <h2 className="text-xl sm:text-2xl font-medium">
                                 Maggy Stellaire
                             </h2>
-                            <h3 className="text-[10px] sm:text-xs font-medium text-(--color-secondary)">
+                            <h3 className="text-xs font-medium text-[var(--color-secondary)]">
                                 Voyante - Médium - Energéticienne
-                            </h3>{" "}
+                            </h3>
                         </div>
                     </div>
                 </Link>
 
+                {/* Desktop Navigation */}
                 <div className="hidden md:flex ml-auto">
                     <div className="flex items-baseline gap-8">
-                        <Link
-                            href="/#services"
-                            className="text-white hover:text-primary font-medium transition-colors"
-                        >
+                        <NavLink href="/#services" onClick={closeMenu}>
                             Services
-                        </Link>
-                        <Link
-                            href="/#a-propos"
-                            className="text-white hover:text-primary font-medium transition-colors"
-                        >
+                        </NavLink>
+                        <NavLink href="/#a-propos" onClick={closeMenu}>
                             À propos
-                        </Link>
-                        <Link
+                        </NavLink>
+                        <NavLink
                             href="mailto:maggy.stellaire@gmail.com"
-                            className="text-white hover:text-primary font-medium transition-colors"
+                            onClick={closeMenu}
                         >
                             Contact
-                        </Link>
+                        </NavLink>
                     </div>
                 </div>
+
+                {/* Mobile Menu Button */}
                 <div className="md:hidden ml-auto">
                     <button
                         onClick={toggleMenu}
-                        className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-primary focus:outline-none"
+                        className="inline-flex items-center justify-center p-2 rounded-md text-[var(--navbar-text)] focus:outline-none transition-colors"
                         aria-expanded={isMenuOpen}
                     >
                         <span className="sr-only">Open main menu</span>
                         <svg
-                            className={`${
-                                isMenuOpen ? "hidden" : "block"
-                            } h-6 w-6`}
+                            className={`${isMenuOpen ? "hidden" : "block"} h-6 w-6`}
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
@@ -81,9 +79,7 @@ const Navigation = () => {
                             />
                         </svg>
                         <svg
-                            className={`${
-                                isMenuOpen ? "block" : "hidden"
-                            } h-6 w-6`}
+                            className={`${isMenuOpen ? "block" : "hidden"} h-6 w-6`}
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
@@ -102,32 +98,54 @@ const Navigation = () => {
             </div>
 
             {/* Mobile menu */}
-            <div className={`${isMenuOpen ? "block" : "hidden"} md:hidden`}>
-                <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-(--color-secondary) backdrop-blur-sm mt-2 rounded-lg">
-                    <Link
-                        href="/#services"
-                        className="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-primary"
-                        onClick={closeMenu}
-                    >
-                        Services
-                    </Link>
-                    <Link
-                        href="/#a-propos"
-                        className="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-primary"
-                        onClick={closeMenu}
-                    >
-                        À propos
-                    </Link>
-                    <Link
-                        href="mailto:maggy.stellaire@gmail.com"
-                        className="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-primary"
-                        onClick={closeMenu}
-                    >
-                        Contact
-                    </Link>
+            {isMenuOpen && (
+                <div className="md:hidden w-[90%] mx-auto mt-2 overflow-hidden rounded-xl">
+                    <div className="nav-blur bg-[var(--navbar-bg)] nav-shadow py-2">
+                        <NavLink href="/#services" mobile onClick={closeMenu}>
+                            Services
+                        </NavLink>
+                        <NavLink href="/#a-propos" mobile onClick={closeMenu}>
+                            À propos
+                        </NavLink>
+                        <NavLink
+                            href="mailto:maggy.stellaire@gmail.com"
+                            mobile
+                            onClick={closeMenu}
+                        >
+                            Contact
+                        </NavLink>
+                    </div>
                 </div>
-            </div>
+            )}
         </nav>
+    )
+}
+
+// Reusable NavLink component
+const NavLink = ({
+    href,
+    children,
+    mobile = false,
+    onClick,
+}: {
+    href: string
+    children: React.ReactNode
+    mobile?: boolean
+    onClick?: () => void
+}) => {
+    return (
+        <Link
+            href={href}
+            className={cn(
+                "text-[var(--navbar-text)] transition-all duration-300 font-medium w-fit",
+                !mobile &&
+                    "relative after:absolute after:bottom-[-4px] after:left-0 after:h-[1px] after:bg-white after:w-0 hover:after:w-full after:transition-all after:duration-300",
+                mobile && "block px-6 py-3"
+            )}
+            onClick={onClick}
+        >
+            {children}
+        </Link>
     )
 }
 

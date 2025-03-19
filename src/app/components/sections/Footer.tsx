@@ -4,7 +4,7 @@ const Footer = () => {
     const currentYear = new Date().getFullYear()
 
     return (
-        <footer className=" text-white mt-32">
+        <footer className="text-white mt-32 bg-(--color-primary-darker)">
             <div className="max-w-3xl mx-auto pt-12 pb-8 px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col gap-8 pb-8 border-b border-gray-700">
                     <div className="col-span-3 flex flex-row justify-between">
@@ -33,7 +33,7 @@ const Footer = () => {
                                 <li>
                                     <Link
                                         href="tel:+33619336252"
-                                        className="text-xs sm:text-sm items-center text-gray-300 hover:text-white transition-colors flex flex-row"
+                                        className="text-xs sm:text-sm items-center text-gray-300 hover:text-white flex flex-row w-fit"
                                     >
                                         <svg
                                             className="h-5 w-5 mr-2"
@@ -63,7 +63,7 @@ const Footer = () => {
                                         href="https://www.facebook.com/MaggyStellaire"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex flex-row text-gray-300 hover:text-white text-xs sm:text-sm transition-colors"
+                                        className="flex flex-row text-gray-300 hover:text-white text-xs sm:text-sm transition-colors items-center"
                                         aria-label="Facebook"
                                     >
                                         <svg
@@ -86,7 +86,7 @@ const Footer = () => {
                                         href="https://www.youtube.com/watch?v=o3shbmqTnZg"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex flex-row text-gray-300 hover:text-white text-xs sm:text-sm transition-colors"
+                                        className="flex flex-row text-gray-300 hover:text-white text-xs sm:text-sm transition-colors items-center"
                                         aria-label="YouTube"
                                     >
                                         <svg

@@ -12,39 +12,35 @@ export type ButtonVariant =
  */
 export const getButtonStyles = (variant: ButtonVariant) => {
     const baseClasses =
-        "px-6 py-3 rounded-lg font-base focus:outline-none cursor-pointer font-main relative"
+        "px-6 py-3 rounded-lg font-base focus:outline-none cursor-pointer font-main relative text-white shadow-2xl"
 
     let variantClasses = ""
+
     switch (variant) {
         case "cta":
             variantClasses =
-                "gradient-primary text-white flex justify-center items-center gap-2  w-fit"
+                "gradient-voyance flex justify-center items-center gap-2 w-fit"
             break
         case "secondary":
             variantClasses =
-                "bg-gray-200 text-[var(--color-secondary)] hover:bg-gray-400 w-fit transition-colors"
+                "bg-white text-black hover:bg-(--color-secondary) w-fit transition-colors font-medium"
             break
         case "voyance":
-            variantClasses =
-                "bg-(--color-button-voyance) text-white w-full hover:bg-(--color-voyance-hover) transition-colors"
+            variantClasses = "gradient-voyance w-full transition-all"
             break
         case "energetique":
-            variantClasses =
-                "bg-(--color-button-energetique) text-white w-full hover:bg-(--color-energetique-hover) transition-colors"
+            variantClasses = "gradient-energetique w-full transition-all"
             break
         case "hypnose":
-            variantClasses =
-                "bg-(--color-button-hypnose) text-white w-full hover:bg-(--color-hypnose-hover) transition-colors"
+            variantClasses = "gradient-hypnose w-full transition-all"
             break
         default:
             variantClasses =
-                "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary)]/75"
+                "bg-[var(--color-primary)] hover:bg-[var(--color-primary)]/75"
             break
     }
 
     return {
-        baseClasses,
-        variantClasses,
         combinedClasses: `${baseClasses} ${variantClasses}`,
     }
 }

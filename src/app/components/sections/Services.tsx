@@ -1,54 +1,49 @@
 import ServiceCard from "../ui/ServiceCard"
 
 const Services = () => {
-    // Define modes for voyance service
     const voyanceModes = {
-        consultation: {
+        generale: {
             label: "Consultation générale",
             price: 70,
             points: [
-                "Libération de vos blocages énergétiques et harmonisation de vos chakras",
-                "Libération karmique et transgénérationnelle",
-                "Rééquilibrage et augmentation de votre taux vibratoire",
-                "Aide à vaincre les différentes addictions et dépendances (Tabac, Alcool...)",
-                "Accompagnement spirituel et émotionnel sur votre chemin de croissance et d'alignement divin",
+                "Voyance en présentiel ou par téléphone",
+                "Consultation générale : passé, présent, futur, vies antérieures",
+                "Réponses à vos questions sur les domaines de votre choix",
+                "Messages de l'univers pour votre chemin de vie",
             ],
         },
         domaine: {
             label: "Le domaine",
             price: 30,
             points: [
-                "Analyse approfondie d'un domaine spécifique de votre vie",
-                "Identification des blocages et des opportunités",
-                "Conseils personnalisés pour avancer dans ce domaine",
-                "Prédictions détaillées sur l'évolution de votre situation",
-                "Suivi personnalisé pour maximiser vos chances de réussite",
+                "Voyance en présentiel ou par téléphone",
+
+                "Réponses à vos questions sur un domaine précis",
             ],
         },
     }
 
-    // Define modes for energetique service
     const energetiqueModes = {
         presentiel: {
             label: "En présentiel",
             price: 90,
             points: [
-                "Tirages et interprétations des cartes du tarot en face à face",
-                "Réponses à vos questions urgentes pour éclairer votre chemin",
-                "Conseils personnalisés pour vous apporter la lumière sur chaque aspect de votre vie",
-                "Accompagnement bienveillant sur votre chemin de vie",
-                "Messages de l'univers pour votre mission d'âme",
+                "Rééquilibrage de vos chakras et de vos nadis (3 canaux énergétiques)",
+                "Alignement de vos corps subtils (astral/émotionnel, éthérique, mental et spirituel)",
+                "Suppression de vos blocages énergétiques",
+                "Détente et bien sentir retrouvés",
+                "Lithothérapie, sonothérapie, relaxation",
             ],
         },
         distance: {
             label: "À distance",
-            price: 30,
+            price: 50,
             points: [
-                "Séance énergétique complète par visioconférence",
-                "Tirages de cartes et interprétation à distance",
-                "Conseils et guidance spirituelle personnalisés",
-                "Suivi par message après la séance",
-                "Flexibilité horaire pour s'adapter à votre emploi du temps",
+                "Rééquilibrage de vos chakras et de vos nadis (3 canaux énergétiques)",
+                "Alignement de vos corps subtils (astral/émotionnel, éthérique, mental et spirituel)",
+                "Suppression de vos blocages énergétiques",
+                "Détente et bien sentir retrouvés",
+                "Lithothérapie, sonothérapie, relaxation",
             ],
         },
     }
@@ -58,10 +53,11 @@ const Services = () => {
             label: "En présentiel",
             price: 50,
             points: [
-                "Purification et harmonisation (lieux personnels ou profesionnels)",
-                "Libération des blocages énergétiques",
-                "Boost énergétique (pour lancement de votre activité ou pour attirer la prospérité)",
-                "Grande protection spirituelle (purification et mise sous protection du lieu)",
+                "Booster votre confiance en vous",
+                "Soutien face au deuil, aux épreuves",
+                "Réconfort dans la gestion des douleurs",
+                "Apaisement des addictions",
+                "Rencontre avec votre guide",
             ],
         },
     }
@@ -69,21 +65,21 @@ const Services = () => {
     return (
         <section
             id="services-section"
-            className="body-text flex flex-col w-full max-w-[1300px] mx-auto justify-center items-center sm:my-64 my-32 px-4"
+            className="body-text flex flex-col w-full max-w-[1200px] mx-auto justify-center items-center sm:mt-64 mt-32 px-4"
         >
             {" "}
             <h2
                 id="services"
-                className="text-4xl sm:text-5xl font-heading mb-8 sm:mb-16 "
+                className="text-4xl sm:text-5xl font-heading mb-8 sm:mb-24 "
             >
                 Services
             </h2>
             <div className="grid gap-8 w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                 <ServiceCard
-                    title="Voyance"
+                    title="Voyance pure"
                     variant="voyance"
                     modes={voyanceModes}
-                    defaultMode="consultation"
+                    defaultMode="generale"
                 />
                 <ServiceCard
                     title="Séance énergétique"
@@ -98,12 +94,12 @@ const Services = () => {
                     defaultMode="presentiel"
                 />
             </div>
-            <div className="flex flex-col gap-2 justify-center items-center mt-4">
-                <p className="text-xs sm:text-sm text-gray-400">
-                    * Selon votre situation, je vous proposerai ce qui vous
+            <div className="flex flex-col gap-2 justify-center items-center mt-6 text-center max-w-2xl">
+                <p className="text-xs text-gray-400">
+                    Selon votre situation, je vous proposerai ce qui vous
                     convient le mieux.
                 </p>
-                <p className="text-xs sm:text-sm text-gray-400">
+                <p className="text-xs text-gray-400">
                     Ces services ne se substituent pas à l'avis d'un
                     professionnel de santé ou à un traitement médical.
                 </p>

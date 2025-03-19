@@ -9,8 +9,8 @@ export default function Home() {
             <Hero />
             <Services />
             <About />
-            <div className="flex flex-col justify-center items-center gap-6 mt-96 mb-64">
-                <p className="text-sm sm:text-base font-main">
+            <div className="flex flex-col justify-center items-center gap-6 my-96">
+                <p className="text-sm sm:text-base font-main text-center font-medium">
                     Vous avez des questions ou souhaitez réserver une
                     consultation ?
                 </p>

@@ -22,35 +22,6 @@ type ServiceCardProps = {
     defaultMode?: string
 }
 
-const variantToList = {
-    voyance: {
-        points: [
-            "Libération de vos blocages énergétiques et harmonisation de vos chakras",
-            "Libération karmique et transgénérationnelle",
-            "Rééquilibrage et augmentation de votre taux vibratoire",
-            "Aide à vaincre les différentes addictions et dépendances (Tabac, Alcool...)",
-            "Accompagnement spirituel et émotionnel sur votre chemin de croissance et d'alignement divin",
-        ],
-    },
-    energetique: {
-        points: [
-            "Tirages et interprétations des cartes du tarot",
-            "Réponses à vos questions urgentes pour éclairer votre chemin",
-            "Conseils personnalisés pour vous apporter la lumière sur chaque aspect de votre vie",
-            "Accompagnement bienveillant sur votre chemin de vie",
-            "Messages de l'univers pour votre mission d'âme",
-        ],
-    },
-    hypnose: {
-        points: [
-            "Purification et harmonisation (lieux personnels ou profesionnels)",
-            "Libération des blocages énergétiques",
-            "Boost énergétique (pour lancement de votre activité ou pour attirer la prospérité)",
-            "Grande protection spirituelle (purification et mise sous protection du lieu)",
-        ],
-    },
-}
-
 const ServiceCard = ({
     title,
     variant,
@@ -61,54 +32,39 @@ const ServiceCard = ({
         defaultMode
     )
 
-    let color = ""
-    switch (variant) {
-        case "voyance":
-            color = "--color-voyance"
-            break
-        case "energetique":
-            color = "--color-energetique"
-            break
-        case "hypnose":
-            color = "--color-hypnose"
-            break
-        default:
-            color = "--color-primary"
-    }
+    if (!modes || !selectedMode) return null
 
-    // Get the current points and price based on the selected mode or fallback to default
-    const currentPoints =
-        modes && selectedMode && modes[selectedMode]
-            ? modes[selectedMode].points
-            : variantToList[variant as keyof typeof variantToList].points
+    const currentPoints = modes[selectedMode].points
+    const currentPrice = modes[selectedMode].price
 
-    const currentPrice =
-        modes && selectedMode && modes[selectedMode]
-            ? modes[selectedMode].price
-            : 50
+    // Get the gradient class based on variant for header (no hover effect)
+    const headerGradientClass = `gradient-header-${variant}`
 
     return (
         <div
-            className={`rounded-xl shadow-md w-full p-8 pt-4 flex flex-col justify-between`}
+            className="rounded-2xl w-full flex flex-col justify-between min-h-[37em] md:min-h-[30em] overflow-hidden shadow-2xl"
             style={{
-                backgroundColor: `var(${color})`,
-                boxShadow: `1px 3px 5px 0 var(${color})`,
+                backgroundColor: "var(--color-primary-darker)",
+                border: `1px solid #211c30`,
             }}
         >
-            <div className="text-center">
+            {/* Card Header with Gradient - No hover effect */}
+            <div
+                className={`p-6 pt-2 text-center relative ${headerGradientClass}`}
+            >
                 {/* Mode Switch */}
                 {modes && Object.keys(modes).length > 1 ? (
-                    <div className="flex justify-center mb-6">
-                        <div className="flex  bg-(--color-switch-off) rounded-full  cursor-pointer">
+                    <div className="flex justify-center mt-2 mb-10">
+                        <div className="flex bg-black/20 rounded-full p-1 backdrop-blur-sm">
                             {Object.entries(modes).map(([mode, option]) => (
                                 <button
                                     key={mode}
                                     onClick={() => setSelectedMode(mode)}
                                     className={cn(
-                                        "px-4 py-2 text-xs rounded-full transition-all  cursor-pointer font-medium",
+                                        "px-3 py-1 text-xs rounded-full font-medium cursor-pointer",
                                         selectedMode === mode
-                                            ? "bg-(--color-switch-on)  "
-                                            : " text-(--color-secondary) hover:text-white"
+                                            ? "bg-(--color-switch-on) text-white shadow-sm"
+                                            : "text-white/80 hover:text-white"
                                     )}
                                 >
                                     {option.label}
@@ -117,53 +73,70 @@ const ServiceCard = ({
                         </div>
                     </div>
                 ) : (
-                    <div className="flex justify-center mb-6">
-                        <div className="flex p-1 bg-(--color-switch-off) rounded-full">
-                            <button
-                                className={cn(
-                                    "px-3 py-1 text-xs rounded-full transition-all font-medium text-(--color-secondary) "
-                                )}
-                            >
-                                En présentiel
-                            </button>
+                    <div className="flex justify-center items-center mt-2 mb-10">
+                        <div className="px-2 py-1 bg-black/10 rounded-full backdrop-blur-sm">
+                            <div className="px-2 py-1 text-xs rounded-full font-medium text-white/80">
+                                {modes[selectedMode].label}
+                            </div>
                         </div>
                     </div>
                 )}
-                <div className="mb-10">
-                    <h3 className="text-2xl sm:text-3xl">{title}</h3>
-                </div>
+                {/* Title */}
+                <h3 className="text-2xl sm:text-3xl font-medium mb-6 text-white drop-shadow-sm">
+                    {title}
+                </h3>
 
-                <div className="mt-auto flex justify-center min-h-[3.5rem] mb-10">
-                    {currentPrice !== undefined && (
-                        <h4 className="text-3xl sm:text-4xl font-heading">
-                            <div className="flex items-center justify-center">
-                                <div>
-                                    {currentPrice}
-                                    <span className="text-sm">€</span>
-                                </div>
+                {/* Price */}
+                <div className="mt-2 mb-4">
+                    <h4 className="text-3xl sm:text-4xl">
+                        <div className="flex items-center justify-center">
+                            <div className="text-white">
+                                {currentPrice}
+                                <span className="text-base">€</span>
                             </div>
-                        </h4>
-                    )}
+                        </div>
+                    </h4>
                 </div>
             </div>
-            <ul className="gap-4 flex flex-col flex-1 px-0 p-0">
-                {currentPoints.map((point) => (
-                    <li
-                        key={point}
-                        className="text-xs sm:text-sm flex items-start gap-2"
+
+            {/* Card Body */}
+            <div className="p-8 flex-1 flex flex-col gap-4">
+                {/* Features List */}
+                <ul className="gap-5 flex flex-col flex-1 mb-8 sm:mb-16">
+                    {currentPoints.map((point, index) => (
+                        <li
+                            key={point}
+                            className={cn(
+                                "text-sm flex items-start gap-3",
+                                variant === "energetique" &&
+                                    selectedMode === "distance" &&
+                                    index === currentPoints.length - 1 &&
+                                    "text-gray-500"
+                            )}
+                        >
+                            <CheckIcon
+                                color={
+                                    variant === "energetique" &&
+                                    selectedMode === "distance" &&
+                                    index === currentPoints.length - 1
+                                        ? "var(--color-secondary)"
+                                        : `var(--${variant}-from)`
+                                }
+                                className="mt-1 flex-shrink-0 w-4 h-4"
+                            />
+                            <span>{point}</span>
+                        </li>
+                    ))}
+                </ul>
+
+                {/* CTA Button */}
+                <div className="mt-auto">
+                    <Button
+                        href="mailto:maggy.stellaire@gmail.com"
+                        variant={variant}
+                        className="w-full"
                     >
-                        <CheckIcon
-                            color="white"
-                            className="mt-1 sm:mt-1.5 ml-[-1rem] flex-shrink-0"
-                        />
-                        <span>{point}</span>
-                    </li>
-                ))}
-            </ul>
-            <div className="flex justify-center items-center mt-16 ">
-                <div className="w-full">
-                    <Button href="/contact" variant={variant}>
-                        Contactez-moi
+                        Réserver
                     </Button>
                 </div>
             </div>
